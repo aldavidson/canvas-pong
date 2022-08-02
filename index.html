@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Canvas Pong</title>
+    <style type="text/css">
+        #viewport {
+            border: 2px outset #ccc;
+            height: 400px;
+            margin: 2em;
+            width: 650px;
+        }
+        #canvas {
+            background-color: #000;
+            height: 100%;
+            width: 100%;
+        }
+        dl * {
+            display: inline-block;
+        }
+        button {
+            padding: 1em;
+        }
+        #debug {
+            border: 1px outset #330;
+            font-family: 'Courier New', Courier, monospace;
+            min-height: 2em;
+        }
+    </style>
+</head>
+<body>
+    <h1>Canvas Pong</h1>
+    <div id='viewport'>
+        <canvas id='canvas' scaleMode='fill'>
+        </canvas>
+    </div>
+    <button id='pause'>Play</button>
+    <div id='debug'></div>
+
+    <script src='js/vector2d.js'></script>
+    <script src='js/player.js'></script>
+    <script src='js/ball.js'></script>
+    <script src='js/pong.js'></script>
+    <script type='text/javascript'>
+        function pause() {
+            var btn = document.getElementById('pause');
+            if ( btn.innerText == 'Play' ) {
+                paused = false;
+                btn.innerHTML = 'Pause';
+                loop();
+            } else {
+                paused = true;
+                btn.innerHTML = 'Play';
+            }
+        }
+        
+        document.getElementById('pause').onclick = pause;
+
+        registerInputEvents();
+        render();
+        loop();
+    </script>
+</body>
+</html>
