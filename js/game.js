@@ -231,9 +231,9 @@ class Game {
   }
   
   loop() {
-    this.clearDebug();
-    this.render();
     if (!this.paused) {
+      this.clearDebug();
+      this.render();
       this.handleInput();
       this.movePlayers();
       this.moveBall();
