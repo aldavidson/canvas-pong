@@ -39,25 +39,27 @@
     <script src='js/vector2d.js'></script>
     <script src='js/player.js'></script>
     <script src='js/ball.js'></script>
-    <script src='js/pong.js'></script>
+    <script src='js/box.js'></script>
+    <script src='js/game.js'></script>
     <script type='text/javascript'>
+        var game = new Game();
+
         function pause() {
             var btn = document.getElementById('pause');
             if ( btn.innerText == 'Play' ) {
-                paused = false;
+                game.paused = false;
                 btn.innerHTML = 'Pause';
-                loop();
+                game.loop();
             } else {
-                paused = true;
+                game.paused = true;
                 btn.innerHTML = 'Play';
             }
         }
         
         document.getElementById('pause').onclick = pause;
 
-        registerInputEvents();
-        render();
-        loop();
+        game.render();
+        game.loop();
     </script>
 </body>
 </html>
