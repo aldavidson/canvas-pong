@@ -1,7 +1,8 @@
 # canvas-pong
 The classic Atari Pong game from 1972, written in Javascript &amp; rendered on a HTML5 Canvas. 
 
-/home/al/Pictures/Screenshot from 2022-08-03 03-17-08.png
+![Screenshot from 2022-08-03 03-17-08](https://user-images.githubusercontent.com/134501/182510045-00daf387-ed7e-4646-9344-b7760cc8375f.png)
+
 
 Why? Just because.
 Well, OK, partly because I wanted to refresh my rusty JS skills, partly as a fun exercise to work through with my daughter, and partly because games were the reason I first got into computers as an 8 year old myself, but I haven't actually done any game coding for .... sheesh, about twenty years.
