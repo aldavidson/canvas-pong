@@ -1,7 +1,7 @@
 
 class Game {
   // Canvas coordinate origin is top-left, so UP and DOWN are inverted
-  controls = {
+  defaultControls = {
     PLAYER2_DOWN: 'ArrowUp',
     PLAYER2_UP: 'ArrowDown',
     PLAYER1_DOWN: 'KeyW',
@@ -23,6 +23,7 @@ class Game {
     this.ball = params.ball || new Ball( {position: new Vector2d({x: canvas.width/2 - 7.5, y: canvas.height/2 })} );
     this.keysPressed = {};
 
+    this.controls = params.controls || this.defaultControls;
     this.registerInputEvents();
   }
   
