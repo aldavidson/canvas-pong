@@ -12,9 +12,10 @@ class Game {
   constructor(params={}) {
     this.window = params.window || window;
     this.canvas = params.canvas || this.window.document.getElementById('canvas');
-    canvas.height = 400;
-    canvas.width = 650;
+    this.canvas.height = 400;
+    this.canvas.width = 650;
     this.context = params.context || canvas.getContext('2d');
+    this.renderer = new Renderer( {context: this.context, canvas: this.canvas} );
     this.debugElement = params.debugElement || this.window.document.getElementById('debug');
     
     this.paused = params.paused || true;
@@ -37,60 +38,6 @@ class Game {
     }.bind(this));
   }
 
-  drawBox(box) {
-    this.context.fillStyle = box.color;
-    this.context.fillRect(box.position.x, box.position.y, box.width, box.height);
-  }
-  
-  drawBoard() {
-    // midline
-    var midLine = new Box({ 
-      x: (canvas.width/2) - 2.5,
-      y: -1,
-      width: 5,
-      height: canvas.height+1,
-      color: '#FFFFFF'
-    });
-    this.drawBox(midLine);
-  }
-  
-  drawPlayers() {
-    // player 1
-    this.drawBox( new Box({
-      position: this.player1.position,
-      width: 15,
-      height: 80,
-      color: '#FFFFFF',
-    }) );
-  
-    // player 2
-    this.drawBox( new Box({
-      position: this.player2.position,
-      width: 15,
-      height: 80,
-      color: '#FFFFFF',
-    }) );
-  }
-  
-  drawScores() {
-    this.context.font = "20px Arial";
-    this.context.fillStyle = "rgb(255,255,255)";
-    // player 1
-    var str1 = this.player1.score;
-    this.context.fillText(str1, (this.canvas.width/2) - 50, 20);
-    // player 2
-    var str2 = this.player2.score;
-    this.context.fillText(str2, (this.canvas.width/2) + 50, 20);
-  }
-  
-  drawBall() {
-    this.drawBox( new Box({
-      position: this.ball.position,
-      width: this.ball.width,
-      height: this.ball.height,
-      color: '#FFFFFF',
-    }) );
-  }
   
   reflectOffTopAndBottom(ball=this.ball, canvas=this.canvas) {
     if ( ball.velocity.y > 0 ) {
@@ -221,13 +168,12 @@ class Game {
     return variable;
   }
   
-  
   render() {
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    this.drawBoard();
-    this.drawPlayers();
-    this.drawBall();
-    this.drawScores();
+    this.renderer.drawBoard();
+    this.renderer.drawPlayers(this.player1, this.player2);
+    this.renderer.drawBall(this.ball);
+    this.renderer.drawScores(this.player1.score, this.player2.score);
   }
   
   loop() {
