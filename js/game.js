@@ -7,7 +7,7 @@ class Game {
     PLAYER1_DOWN: 'KeyW',
     PLAYER1_UP: 'KeyS',
   };
-  MAX_PLAYER_SPEED = 2;
+  MAX_PLAYER_SPEED = 3;
   
   constructor(params={}) {
     this.window = params.window || window;
@@ -53,10 +53,10 @@ class Game {
   
   reflectOffBats(ball=this.ball, player1=this.player1, player2=this.player2) {
     if ( ball.velocity.x < 0 && this.hasCollided( ball, player1, 'L') ) {
-      ball.velocity.x *= -1;
+      ball.velocity.x *= -1.1;
       ball.velocity.y += player1.velocity.y;
     } else if ( ball.velocity.x > 0 && this.hasCollided( ball, player2, 'R') ) {
-      ball.velocity.x *= -1;
+      ball.velocity.x *= -1.1;
       ball.velocity.y += player2.velocity.y;
     }
   }
