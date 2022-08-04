@@ -19,13 +19,23 @@ class Game {
     this.debugElement = params.debugElement || this.window.document.getElementById('debug');
     
     this.paused = params.paused || true;
-    this.player1 = params.player1 || new Player({position: new Vector2d({x: 10, y: 200}) });
-    this.player2 = params.player2 || new Player({position: new Vector2d({x: 625, y: 200}) });
+    this.player1 = params.player1 || new Player({name: 'Player 1', position: new Vector2d({x: 10, y: 200}) });
+    this.player2 = params.player2 || new Player({name: 'Player 2', position: new Vector2d({x: 625, y: 200}) });
     this.ball = params.ball || new Ball( {position: new Vector2d({x: canvas.width/2 - 7.5, y: canvas.height/2 })} );
     this.keysPressed = {};
 
     this.controls = params.controls || this.defaultControls;
     this.registerInputEvents();
+  }
+
+  restart() {
+    this.player1.score = 0;
+    this.player1.position = new Vector2d({x: 10, y: 200});
+    this.player2.score = 0;
+    this.player2.position = new Vector2d({x: 625, y: 200});
+    this.initialiseBall();
+    this.paused = false;
+    this.loop();
   }
   
   registerInputEvents() {
@@ -167,6 +177,18 @@ class Game {
     }
     return variable;
   }
+
+  isOver() {
+    return( this.player1.score >= 10 || this.player2.score >= 10 );
+  }
+
+  winner() {
+    if( this.player1.score >= 10 ) {
+      return this.player1;
+    } else if ( this.player2.score >= 10 ) {
+      return this.player2;
+    }
+  }
   
   render() {
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -177,7 +199,9 @@ class Game {
   }
   
   loop() {
-    if (!this.paused) {
+    if ( this.isOver() ) {
+      this.renderer.drawGameOverSplash(this);
+    } else if (!this.paused) {
       this.clearDebug();
       this.render();
       this.handleInput();
