@@ -19,8 +19,8 @@ class Game {
     this.debugElement = params.debugElement || this.window.document.getElementById('debug');
     
     this.paused = params.paused || true;
-    this.player1 = params.player1 || new Player({position: new Vector2d({x: 10, y: 200}) });
-    this.player2 = params.player2 || new Player({position: new Vector2d({x: 625, y: 200}) });
+    this.player1 = params.player1 || new Player({name: 'Player 1', position: new Vector2d({x: 10, y: 200}) });
+    this.player2 = params.player2 || new Player({name: 'Player 2', position: new Vector2d({x: 625, y: 200}) });
     this.ball = params.ball || new Ball( {position: new Vector2d({x: canvas.width/2 - 7.5, y: canvas.height/2 })} );
     this.keysPressed = {};
 
